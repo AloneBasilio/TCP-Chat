@@ -1,0 +1,13 @@
+services:
+
+  chat-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+
+    container_name: tcp-chat-server
+
+    ports:
+      - "3000:3000"
+
+    restart: unless-stopped
