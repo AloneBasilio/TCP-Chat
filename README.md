@@ -109,6 +109,7 @@ Pré-requisitos: Docker e Docker Compose instalados.
 
 ```bash
 cd tcp-chat
+cp .env.exemple .env
 docker compose up --build
 ```
 
