@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TCP Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="toast-stack"></div>
+
+  <!-- ============ CONNECT SCREEN ============ -->
+  <div id="connect-screen">
+    <div class="dot-field"></div>
+    <div class="connect-card">
+      <div class="connect-header">
+        <div class="eyebrow">tcp-chat / socket console</div>
+        <h1>Ligar ao servidor</h1>
+        <p>Autentique-se para entrar nas salas de conversa.</p>
+      </div>
+
+      <div class="connect-body">
+        <div class="field-row">
+          <div class="field">
+            <label for="conn-host">Host</label>
+            <input type="text" id="conn-host" value="localhost" autocomplete="off" />
+          </div>
+          <div class="field" style="max-width: 110px;">
+            <label for="conn-port">Porta WS</label>
+            <input type="number" id="conn-port" value="8080" autocomplete="off" />
+          </div>
+        </div>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="conn-tls" />
+          usar wss:// (TLS)
+        </label>
+
+        <div class="tabs">
+          <button class="tab active" id="tab-login" type="button">Entrar</button>
+          <button class="tab" id="tab-register" type="button">Registar</button>
+        </div>
+
+        <div class="field">
+          <label for="auth-username">Utilizador</label>
+          <input type="text" id="auth-username" autocomplete="off" placeholder="ex: alone" />
+        </div>
+        <div class="field">
+          <label for="auth-password">Palavra-passe</label>
+          <input type="password" id="auth-password" autocomplete="off" placeholder="mínimo 6 caracteres" />
+        </div>
+
+        <button class="btn-primary" id="btn-connect">Ligar e entrar</button>
+        <div class="connect-status" id="connect-status"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ APP SCREEN ============ -->
+  <div id="app-screen">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="identity">
+          <div class="avatar" id="user-avatar">?</div>
+          <div class="identity-text">
+            <div class="identity-name" id="user-name">—</div>
+            <div class="identity-endpoint" id="user-endpoint">—</div>
+          </div>
+        </div>
+        <div class="conn-strip">
+          <span class="conn-dot" id="conn-dot"></span>
+          <span id="conn-label">ligado</span>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">As suas salas</div>
+        <ul class="room-list" id="joined-room-list"></ul>
+        <div class="join-row">
+          <input type="text" id="join-room-input" placeholder="nome da sala…" autocomplete="off" />
+          <button id="btn-join-room" type="button">Entrar</button>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Todas as salas</div>
+        <ul class="room-list" id="all-room-list"></ul>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="btn-ghost" id="btn-disconnect" type="button">Terminar sessão</button>
+      </div>
+    </aside>
+
+    <main class="chat-pane">
+      <div class="chat-header">
+        <h2 id="chat-room-title"><span class="hash">#</span>—</h2>
+        <span class="member-count" id="chat-member-count"></span>
+      </div>
+
+      <div class="chat-log" id="chat-log">
+        <div class="empty-state" id="chat-empty-state">
+          <div class="glyph">::</div>
+          <p><strong>Nenhuma sala ativa.</strong></p>
+          <p>Entre numa sala na barra lateral para começar a conversar.</p>
+        </div>
+      </div>
+
+      <div class="composer">
+        <div class="composer-row">
+          <input type="text" id="composer-input" placeholder="Entre numa sala para escrever…" disabled autocomplete="off" />
+          <button id="btn-send" type="button" disabled>Enviar</button>
+        </div>
+        <div class="composer-hint">Enter para enviar · a ligação usa heartbeat automático (ping/pong)</div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
